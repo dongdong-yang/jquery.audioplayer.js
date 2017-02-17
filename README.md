@@ -2,10 +2,15 @@
 
 This plugin focus on play audio on all browser, including iPad.
 ```
-// we have to preload audio in iPad inorder to play it once needed.
+
+new AudioPlayer('http://example.org/sound').play();
+
+// or:
+
 var player=new AudioPlayer('http://example.org/sound');
 
-var yourPlayFunc=function(){
+var yourFunction=function(){
+    // we have to preload audio in iPad inorder to play it once needed.
     player.play();
 }
 
