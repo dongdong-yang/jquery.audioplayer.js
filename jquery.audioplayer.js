@@ -15,22 +15,26 @@
         var audio;
 
         if (isSafari) {
-
+            //Thanks to mrpanda in http://stackoverflow.com/questions/10951524/play-and-replay-a-sound-on-safari-mobile
             audio = new Audio(url);
 
             var startAudio = function () {
                 audio.play();
                 
+                //unload event once loading started.
                 document.removeEventListener("touchstart", startAudio, false);
             }
 
             var pauseAudio = function () {
                 audio.pause();
+                //unload event once safari start loading audio file
                 audio.removeEventListener("play", pauseAudio, false);
             }
             // Start playing audio when the user clicks anywhere on the page,
             // to force Mobile Safari to load the audio.
             document.addEventListener("touchstart", startAudio, false);
+         
+            // pause immediately once safari start loading audio file 
             audio.addEventListener("play", pauseAudio, false);
         }
 
@@ -41,7 +45,10 @@
             } else {
 
                 $('.audio-player').remove();
-
+             
+                // Thanks to admsev in https://github.com/admsev/jquery-play-sound/blob/master/jquery.playSound.js
+                // This is simplest way to play in most old and new browser.
+                // but if you need pause/stop audio, you need to try other codes.
                 $(
                    '<audio class="audio-player" autoplay="autoplay" style="display:none;">'
                      + '<source src="' + url + '" />'
